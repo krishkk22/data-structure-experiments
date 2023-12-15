@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int graph[5][5];
+    
+    int x = 0, y = 0;
+    
+    for(int i = 0; i < 5; i++)
+    {
+        for(int j = 0; j < 5; j++)
+        {
+            graph[i][j] = 0;
+        }
+    }
+    while(x != -1)
+    {
+        printf("Enter the edges or -1 to exit\n");
+        scanf("%d", &x);
+        if(x == -1)break;
+        scanf("%d", &y);
+        graph[x][y] = graph[y][x] = 1;
+    }
+    
+    int a;
+    printf("Enter the node to traverse from\n");
+    scanf("%d", &a);
+    
+    queue<int> q;
+
+    q.push(a);
+    set<int> marked;
+    marked.insert(a);
+    
+    while(!q.empty())
+    {
+        int t = q.front();
+        cout << t << endl;
+        q.pop();
+        for(int i  = 0; i < 5; i++)
+        {
+            if(marked.count(i) == 0 && graph[t][i] == 1)
+            {
+                marked.insert(i);
+                q.push(i);
+            }
+            
+        }
+        
+    }
+    cout << "\n";
+    
+    printf("Enter number to search for\n");
+    int num;
+    scanf("%d", &num);
+    if(marked.count(num))cout << "PRESENT";
+    else cout << "NOT PRESENT\n";
+    
+    return 0;
+}
