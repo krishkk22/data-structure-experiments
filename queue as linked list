@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    struct node* next;
+    int data;
+};
+
+struct node* first = NULL;
+struct node* last = NULL;
+
+
+void enqueue(int data)
+{
+    struct node * n = malloc(sizeof(struct node));
+    n->data = data;
+    n->next = NULL;
+
+    if(first == last && first == NULL)
+    {
+        first = last = n;
+    }
+    else
+    {
+        last->next = n;
+        last = n;
+    }
+}
+
+void dequeue()
+{
+    if(first == last && last == NULL)
+    {
+        printf("The queue is empty");
+        return;
+    }
+    else if(first == last)
+    {
+        struct node *temp = first;
+        free(temp);
+        first = last = NULL;
+    }
+    else
+    {
+        struct node *temp = first;
+        first = first->next;
+        free(temp);
+    }
+}
+
+void print()
+{
+    struct node *temp = first;
+    while(temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+int main(void)
+{
+    enqueue(1);
+    enqueue(2);
+    enqueue(3);
+    print();
+    dequeue();
+    print();
+    dequeue();
+    print();
+    dequeue();
+    print();
+    dequeue();
+    print();
+}
