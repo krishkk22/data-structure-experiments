@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    struct node *next;
+    int data;
+};
+
+void push(int x, struct node ** top)
+{
+    struct node * n = malloc(sizeof(struct node));
+    n->data = x;
+    n->next = NULL;
+
+    if(top == NULL)
+    {
+        *top = n;
+    }
+    else
+    {
+        n->next = *top;
+        *top = n;
+    }
+}
+
+void peek (struct node * top)
+{
+    printf("%d is the number at the top\n", top->data);
+}
+
+void pop(struct node ** top)
+{
+    if(top == NULL)
+    {
+        printf("The stack is empty\n");
+        return;
+    }
+    struct node *temp = *top;
+    *top = (*top)->next;
+    free(temp);
+    return;
+}
+
+int main()
+{
+    struct node* top = NULL;
+    push(5, &top);
+    peek(top);
+    push(7, &top);
+    peek(top);
+    pop(&top);
+    peek(top);
+}
